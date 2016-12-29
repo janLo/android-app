@@ -21,6 +21,7 @@ import fr.gaulupeau.apps.Poche.data.OperationsHelper;
 import fr.gaulupeau.apps.Poche.data.Settings;
 import fr.gaulupeau.apps.Poche.network.WallabagConnection;
 import fr.gaulupeau.apps.Poche.network.WallabagServiceEndpoint;
+import fr.gaulupeau.apps.Poche.network.WallabagServiceWrapper;
 import fr.gaulupeau.apps.Poche.network.tasks.TestFeedsTask;
 import fr.gaulupeau.apps.Poche.service.AlarmHelper;
 import fr.gaulupeau.apps.Poche.ui.Themes;
@@ -50,6 +51,10 @@ public class SettingsActivity extends AppCompatActivity {
                 R.string.pref_key_connection_url,
                 R.string.pref_key_connection_username,
                 R.string.pref_key_connection_password,
+                R.string.pref_key_connection_api_clientID,
+                R.string.pref_key_connection_api_clientSecret,
+                R.string.pref_key_connection_api_refreshToken,
+                R.string.pref_key_connection_api_accessToken,
                 R.string.pref_key_connection_serverVersion,
                 R.string.pref_key_connection_feedsUserID,
                 R.string.pref_key_connection_feedsToken,
@@ -275,6 +280,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                 Log.i(TAG, "applyChanges() calling WallabagConnection.replaceClient()");
                 WallabagConnection.replaceClient();
+                WallabagServiceWrapper.resetInstance();
             }
         }
 
@@ -312,6 +318,8 @@ public class SettingsActivity extends AppCompatActivity {
 
                 case R.string.pref_key_connection_advanced_acceptAllCertificates:
                 case R.string.pref_key_connection_advanced_customSSLSettings:
+                case R.string.pref_key_connection_api_clientID:
+                case R.string.pref_key_connection_api_clientSecret:
                     Log.d(TAG, "onSharedPreferenceChanged() httpClientReinitializationNeeded");
                     httpClientReinitializationNeeded = true;
                 case R.string.pref_key_connection_url:
@@ -466,6 +474,10 @@ public class SettingsActivity extends AppCompatActivity {
                     break;
 
                 case R.string.pref_key_connection_username:
+                case R.string.pref_key_connection_api_clientID:
+                case R.string.pref_key_connection_api_clientSecret:
+                case R.string.pref_key_connection_api_refreshToken:
+                case R.string.pref_key_connection_api_accessToken:
                 case R.string.pref_key_connection_feedsUserID:
                 case R.string.pref_key_connection_advanced_httpAuthUsername:
                 case R.string.pref_key_ui_article_fontSize:
